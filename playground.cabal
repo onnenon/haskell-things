@@ -20,7 +20,7 @@ library lib
     Calculator
     Colors
 
-executable haskell-test
+executable playground
   import:         options
   hs-source-dirs: app
   main-is:        Main.hs
