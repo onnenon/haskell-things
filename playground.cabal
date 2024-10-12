@@ -1,0 +1,27 @@
+cabal-version:   3.0
+name:            playground
+version:         0.1.0.0
+license:         MIT
+license-file:    LICENSE
+author:          Stephen Onnen
+maintainer:      stephen.onnen@gmail.com
+build-type:      Simple
+extra-doc-files: CHANGELOG.md
+
+common options
+  ghc-options:      -Wall
+  build-depends:    base ^>=4.19.0.0
+  default-language: GHC2021
+
+library lib
+  import:          options
+  hs-source-dirs:  lib
+  exposed-modules:
+    Calculator
+    Colors
+
+executable haskell-test
+  import:         options
+  hs-source-dirs: app
+  main-is:        Main.hs
+  build-depends:  playground:lib

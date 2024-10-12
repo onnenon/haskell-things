@@ -1,29 +1,18 @@
-data Person = Person {name :: String, favoriteColor :: Maybe String} deriving (Show)
+module Main where
 
-persons :: [Person]
-persons =
-  [ Person{name = "Bob", favoriteColor = Just "red"}
-  , Person{name = "Alice", favoriteColor = Just "orange"}
-  , Person{name = "Sam", favoriteColor = Nothing}
-  , Person{name = "Tom", favoriteColor = Just "blue"}
-  ]
-
-hexForColor :: String -> Maybe String
-hexForColor c = case c of
-  "red" -> Just "#FF0000"
-  "blue" -> Just "#0000FF"
-  "yellow" -> Just "#FFFF00"
-  _ -> Nothing
-
--- Function to print favorite color of a person
-printFavoriteColor :: Person -> IO ()
-printFavoriteColor person =
-  case favoriteColor person >>= hexForColor of
-    Just hex -> putStrLn $ "The hex code of " ++ name person ++ "'s favorite color is: " ++ hex
-    Nothing -> return ()
+import Calculator
+import qualified Colors as C
 
 main :: IO ()
-main = mapM_ printFavoriteColor persons
+main = do
+  let add = calculate (Num 1) (Num 2) Add
+  let sub = calculate (Num 1) (Num 2) Subtract
+  let l = calculate (List [1, 2, 3]) (List [4, 5, 6]) (OpList [Add, Subtract, Multiply])
+  putStrLn $ "1 + 2 = " ++ show add
+  putStrLn $ "1 - 2 = " ++ show sub
+  putStrLn $ "[1, 2, 3] [4, 5, 6] [Add, Subtract, Multiply]= " ++ show l
+  putStrLn $ "1 / 0 = " ++ show (calculate (Num 1) (Num 0) Divide)
+  mapM_ C.printFavoriteColor C.persons
 
 -- Prints
 -- The hex code of Bob's favorite color is: #FF0000
