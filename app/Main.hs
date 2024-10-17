@@ -2,29 +2,29 @@ module Main where
 
 -- import Calculator
 -- import Colors qualified as C
-import PhoneBook qualified as PB
+import PhoneBook
 
 main :: IO ()
 main = do
   let pb =
-        [ PB.Entry "John" "123-456-7890",
-          PB.Entry "Jane" "456-123-4567",
-          PB.Entry "Bob" "555-555-5555",
-          PB.Entry "Fran" "123-456-7890"
+        [ Entry "John" "123-456-7890",
+          Entry "Jane" "456-123-4567",
+          Entry "Bob" "555-555-5555",
+          Entry "Fran" "123-456-7890"
         ]
   pb' <- promptForEntry pb
   putStrLn $ "Phone book: " ++ show pb'
   pb'' <- promptForUpdate pb'
   putStrLn $ "Phone book: " ++ show pb''
 
-promptForEntry :: PB.PhoneBook -> IO PB.PhoneBook
+promptForEntry :: PhoneBook -> IO PhoneBook
 promptForEntry pb = do
   putStrLn "Enter a name:"
   name <- getLine
   putStrLn "Enter a phone number:"
   phone <- getLine
-  let entry = PB.Entry name phone
-  case PB.addEntry pb entry of
+  let entry = Entry name phone
+  case addEntry pb entry of
     Right pb' -> do
       putStrLn $ "Added entry: " ++ show entry
       return pb'
@@ -32,14 +32,14 @@ promptForEntry pb = do
       putStrLn err
       promptForEntry pb
 
-promptForUpdate :: PB.PhoneBook -> IO PB.PhoneBook
+promptForUpdate :: PhoneBook -> IO PhoneBook
 promptForUpdate pb = do
   putStrLn "Enter an existing name to update:"
   name <- getLine
   putStrLn "Enter a new phone number:"
   phone <- getLine
-  let entry = PB.Entry name phone
-  case PB.updateNumber pb entry of
+  let entry = Entry name phone
+  case updateNumber pb entry of
     Right pb' -> do
       putStrLn $ "Updated entry: " ++ show entry
       return pb'

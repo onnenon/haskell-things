@@ -16,6 +16,8 @@ common options
 library lib
   import:          options
   hs-source-dirs:  lib
+  build-depends:   
+    regex-tdfa ^>=1.3.2.2
   exposed-modules:
     Calculator
     Colors
