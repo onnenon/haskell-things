@@ -2,6 +2,7 @@ module Colors where
 
 data Person = Person {name :: String, favoriteColor :: Maybe String} deriving (Show)
 
+-- | List of persons
 persons :: [Person]
 persons =
   [ Person {name = "Bob", favoriteColor = Just "red"},
@@ -10,6 +11,7 @@ persons =
     Person {name = "Tom", favoriteColor = Just "blue"}
   ]
 
+-- | Function to get hex code for a color
 hexForColor :: String -> Maybe String
 hexForColor c = case c of
   "red" -> Just "#FF0000"

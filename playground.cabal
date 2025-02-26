@@ -22,6 +22,7 @@ library lib
     Calculator
     Colors
     PhoneBook
+    Scratch
 
 executable playground
   import:         options

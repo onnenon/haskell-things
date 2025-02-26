@@ -13,8 +13,8 @@ type PhoneBook = [Entry]
 
 -- | Check if an entry already exists in the phone book
 --
--- >>> entryExists [Entry "John" "123"] (Entry "John" "456")
--- True
+-- >>> entryExists [Entry "Mike" "123"] (Entry "John" "456")
+-- False
 entryExists :: PhoneBook -> Entry -> Bool
 entryExists pb e = any (\x -> name x == name e) pb
 
@@ -38,9 +38,11 @@ isValidPhoneNumber number = number =~ "^[0-9]{3}-[0-9]{3}-[0-9]{4}$"
 -- Left "Invalid phone number"
 addEntry :: PhoneBook -> Entry -> Either String PhoneBook
 addEntry pb e
-  | not $ isValidPhoneNumber $ phone e = Left "Invalid phone number"
+  | not validNumber = Left "Invalid phone number"
   | entryExists pb e = Left "Entry already exists"
   | otherwise = Right $ e : pb
+  where
+    validNumber = isValidPhoneNumber $ phone e
 
 -- | Update an entry in the phone book
 -- Returns an error message if the phone number is invalid or the entry does not exist
